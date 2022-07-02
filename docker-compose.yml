@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  # app
+  tachinovoice_app:
+    container_name: tachinovoice_app
+    build: 
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    volumes:
+      - ./docker/src/laravel:/var/www
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+  # nginx
+  tachinovoice_nginx:
+    container_name: tachinovoice_nginx
+    build: ./docker/nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./docker/src/laravel:/var/www
+  # node
+  tachinovoice_node:
+    container_name: tachinovoice_node
+    build: ./docker/node
+    tty: true
+    ports:
+      - 3000:3000
+    volumes:
+      - ./docker/src/next:/usr/src/app
+    command: sh -c "npm run dev"
+  # MariaDB のコンテナ
+  tachinovoice_mariadb:
+    container_name: tachinovoice_mariadb
+    image: mariadb:10.5.4
+    environment:
+      # ユーザー名やパスワードなどは適宜変更してください
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+  tachinovoice_phpmyadmin:
+    container_name: tachinovoice_phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: repono_mariadb
+      PMA_USER: $DB_USER
+      PMA_PASSWORD: $DB_PASSWORD
+    ports:
+        - 8080:80
+    volumes:
+        - /sessions

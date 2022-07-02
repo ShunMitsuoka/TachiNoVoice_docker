@@ -1,0 +1,7 @@
+!.gitignore
+.env
+.vscode
+docker/db/data/*
+!docker/db/data/.gitkeep
+docker/src/*
+!docker/src/index.php
