@@ -4,7 +4,7 @@ services:
   # app
   tachinovoice_app:
     container_name: tachinovoice_app
-    build: 
+    build:
       context: .
       dockerfile: ./docker/php/Dockerfile
     volumes:
@@ -45,10 +45,10 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     environment:
       PMA_ARBITRARY: 1
-      PMA_HOST: repono_mariadb
+      PMA_HOST: tachinovoice_mariadb
       PMA_USER: $DB_USER
       PMA_PASSWORD: $DB_PASSWORD
     ports:
-        - 8080:80
+      - 8080:80
     volumes:
-        - /sessions
+      - /sessions

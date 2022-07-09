@@ -3,5 +3,6 @@
 .vscode
 docker/db/data/*
 !docker/db/data/.gitkeep
-docker/src/*
+docker/src/laravel/*
+docker/src/next/*
 !docker/src/index.php
