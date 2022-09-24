@@ -27,7 +27,7 @@ services:
       - 80:3000
     volumes:
       - ./docker/src/next:/usr/src/app
-    command: sh -c "npm run dev"
+    command: sh -c "npm run ${NODE_RUN}"
   # MariaDB のコンテナ
   tachinovoice_mariadb:
     container_name: tachinovoice_mariadb
@@ -45,9 +45,7 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     environment:
       PMA_ARBITRARY: 1
-      PMA_HOST: tachinovoice_mariadb
-      PMA_USER: $DB_USER
-      PMA_PASSWORD: $DB_PASSWORD
+      PMA_HOST: db-tachinovoice001.cfdp5dahd695.ap-northeast-1.rds.amazonaws.com
     ports:
       - 8080:80
     volumes:
