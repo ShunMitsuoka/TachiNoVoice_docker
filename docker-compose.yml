@@ -45,7 +45,7 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     environment:
       PMA_ARBITRARY: 1
-      PMA_HOST: db-tachinovoice001.cfdp5dahd695.ap-northeast-1.rds.amazonaws.com
+      PMA_HOST: ${DB_HOST}
     ports:
       - 8080:80
     volumes:
