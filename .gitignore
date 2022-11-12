@@ -5,4 +5,5 @@ docker/db/data/*
 !docker/db/data/.gitkeep
 docker/src/laravel/*
 docker/src/next/*
+docker/src/tachinovoice_python/*
 !docker/src/index.php

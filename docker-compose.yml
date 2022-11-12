@@ -54,3 +54,13 @@ services:
       - 8080:80
     volumes:
       - /sessions
+  tachinovoice_python:
+    restart: always
+    build: ./docker/python
+    container_name: 'tachinovoice_python'
+    working_dir: '/root/src'
+    tty: true
+    ports:
+      - 8888:8000
+    volumes:
+      - ./docker/src/tachinovoice_python:/root/src
