@@ -3,3 +3,4 @@ fastapi
 uvicorn
 mecab-python3
 wordcloud
+pydantic
