@@ -34,9 +34,19 @@ RUN apt-get update \
     && apt-get install -y git \
     # xdebugのインストール
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+    && docker-php-ext-enable xdebug \
+    # cronのインストール
+    && apt-get install -y cron
     
 # Composerのインストール & パス通す
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Cron処理
+COPY ./docker/php/cron /etc/cron.d/cron
+COPY ./docker/php/cron /var/spool/cron/crontabs/root
+RUN crontab /var/spool/cron/crontabs/root
+
+RUN chmod 0644 /etc/cron.d/cron &&\
+    touch /var/log/cron.log
 
 WORKDIR /var/www
